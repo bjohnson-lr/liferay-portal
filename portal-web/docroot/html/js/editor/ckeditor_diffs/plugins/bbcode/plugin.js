@@ -2,9 +2,10 @@
 	CKEDITOR.plugins.add(
 	'bbcode',
 		{
-			beforeInit: function( editor ) {
+			beforeInit: function(editor) {
 				CKEDITOR.tools.extend(
-					editor.config, {
+					editor.config,
+					{
 						listIndentOnly: true
 					},
 					true
@@ -41,13 +42,13 @@
 				editor.ui.addButton(
 					'Code',
 					{
-						click : function() {
+						click: function() {
 							editor.focus();
 							editor.fire('saveSnapshot');
 
 							var elementPath = new CKEDITOR.dom.elementPath(editor.getSelection().getStartElement());
 
-							preElement[ preElement.checkActive( elementPath ) ? 'remove' : 'apply' ](editor.document);
+							preElement[ preElement.checkActive(elementPath) ? 'remove' : 'apply' ](editor.document);
 
 							setTimeout(
 								function() {
@@ -61,16 +62,20 @@
 					}
 				);
 
-				editor.on('saveSnapshot', function(event) {
-					var preIndex = editor.document.getElementsByTag('pre').count() - 1;
-					var preBlock = editor.document.getElementsByTag('pre').getItem(preIndex);
+				editor.on(
+					'saveSnapshot',
+					function(event) {
+						var preIndex = editor.document.getElementsByTag('pre').count() - 1;
 
-					var preIsEmpty = preBlock ? preBlock.$.children.length === 0 : true;
+						var preBlock = editor.document.getElementsByTag('pre').getItem(preIndex);
 
-					if (preBlock && preIsEmpty) {
-						preBlock.appendBogus();
+						var preIsEmpty = preBlock ? preBlock.$.children.length === 0 : true;
+
+						if (preBlock && preIsEmpty) {
+							preBlock.appendBogus();
+						}
 					}
-				});
+				);
 			}
 		}
 	);
