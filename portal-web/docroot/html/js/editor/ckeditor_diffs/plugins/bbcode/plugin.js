@@ -72,6 +72,17 @@
 						label: Liferay.Language.get('code')
 					}
 				);
+
+				editor.on('saveSnapshot', function(event) {
+					var preIndex = editor.document.getElementsByTag('pre').count() - 1;
+					var preBlock = editor.document.getElementsByTag('pre').getItem(preIndex);
+
+					var preIsEmpty = preBlock ? preBlock.$.children.length === 0 : true;
+
+					if (preBlock && preIsEmpty) {
+						preBlock.appendBogus();
+					}
+				});
 			}
 		}
 	);
