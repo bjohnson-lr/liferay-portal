@@ -47,19 +47,7 @@
 
 							var elementPath = new CKEDITOR.dom.elementPath(editor.getSelection().getStartElement());
 
-							var elementAction = 'apply';
-
-							if (preElement.checkActive(elementPath)) {
-								elementAction = 'remove';
-							}
-
-							preElement[elementAction](editor.document);
-
-							var preBlock = editor.document.getElementsByTag('pre').getItem(0);
-
-							if (preBlock && preBlock.getChildCount() === 0) {
-								preBlock.appendBogus();
-							}
+							preElement[ preElement.checkActive( elementPath ) ? 'remove' : 'apply' ](editor.document);
 
 							setTimeout(
 								function() {
